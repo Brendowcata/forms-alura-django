@@ -12,7 +12,14 @@ def index(request):
 def revisao_consulta(request):
     if request.method == 'POST':
         form = PassagemForms(request.POST)
-        dados = {
+        if form.is_valid():
+            dados = {
             'form':form
-        }
-        return render(request, 'minha_consulta.html', dados)
+            }
+            return render(request, 'minha_consulta.html', dados)
+        else:
+            print('Form inválido')
+            dados = {
+             'form':form
+            }
+            return render(request, 'index.html', dados)
